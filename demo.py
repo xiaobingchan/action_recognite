@@ -202,7 +202,7 @@ def detect_main(video_source = '',image_source = '',video_name=''):
     net = jit.load(r'.\weights\openpose.jit')
 
     # *************************************************************************
-    action_net = jit.load(r'.\action_detect\checkPoint\action2.jit')
+    action_net = jit.load(r'.\action_detect\checkPoint\action.jit')
     # ************************************************************************
 
     frame_provider = ImageReader(args.images)
@@ -222,14 +222,16 @@ def detect_main(video_source = '',image_source = '',video_name=''):
         # *************************************************************************
 
         # args.track = 0
+    # 使用GPU运算
+    args.cpu=0
     # 使用CPU运算
-    args.cpu=1
+    args.cpu=0
     run_demo(net, action_net, frame_provider, args.height_size, args.cpu)
 
 if __name__ == '__main__':
 
-    detect_main(video_source=r'13.mp4',video_name='video1')
-    
+    detect_main(video_source=r'fall.mp4',video_name='video1')
+    detect_main(video_source=0,video_name='')
     # 写个文件夹遍历图片，获取他们全部的路径
     # g = os.walk(r"./pushup")  
 
@@ -242,5 +244,3 @@ if __name__ == '__main__':
     # for xxxx in xxx :
     #     detect_main(image_source='./pushup/pre/99.jpg')
     # 每个类型分别跑一次，就能生成了
-
-
